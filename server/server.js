@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const multer = require("multer");
@@ -5,15 +6,16 @@ const { exec } = require("child_process");
 
 const app = express();
 const upload = multer({ dest: "uploads/" });
+const PORT = process.env.PORT || 3000;
 
 const corsOptions = {
-	origin: ["http://localhost:5173"],
+	origin: [process.env.CLIENT_URL],
 };
 app.use(cors(corsOptions));
 
 app.post("/docxtopdf", upload.single("file"), (req, res) => {
 	if (!req.file) return res.status(400).json({ error: "No file" });
-	console.log(req.file)
+	console.log(req.file);
 
 	exec(
 		`soffice --headless --convert-to pdf --outdir uploads ${req.file.path}`,
@@ -32,5 +34,5 @@ app.post("/docxtopdf", upload.single("file"), (req, res) => {
 	);
 });
 
-app.listen(8080, () => {});
+app.listen(PORT, () => {});
 console.log("Server started on port 8080");
