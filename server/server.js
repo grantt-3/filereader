@@ -9,11 +9,10 @@ const upload = multer({ dest: "uploads/" });
 const PORT = process.env.PORT || 3000;
 
 const corsOptions = {
-	origin: [process.env.CLIENT_URL,
-		"https://docxtopdf-pi.vercel.app"
-	],
+	origin: [process.env.CLIENT_URL, "https://docxtopdf-pi.vercel.app"],
 };
 app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
 
 app.post("/docxtopdf", upload.single("file"), (req, res) => {
 	if (!req.file) return res.status(400).json({ error: "No file" });
@@ -37,4 +36,4 @@ app.post("/docxtopdf", upload.single("file"), (req, res) => {
 });
 
 app.listen(PORT, () => {});
-console.log("Server started on port 8080");
+console.log(`Server started on port ${PORT}`);
