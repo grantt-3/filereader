@@ -15,7 +15,7 @@ function App() {
 
 		try {
 			const response = await axios.post(
-				"http://localhost:8080/docxtopdf",
+				`${import.meta.env.VITE_API_URL}/docxtopdf`,
 				formData,
 				{
 					responseType: "blob",
@@ -36,6 +36,7 @@ function App() {
 
 	return (
 		<div>
+			<h1>Convert docx to PDF</h1>
 			<input
 				type="file"
 				accept=".docx"
