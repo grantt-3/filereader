@@ -9,7 +9,9 @@ const upload = multer({ dest: "uploads/" });
 const PORT = process.env.PORT || 3000;
 
 const corsOptions = {
-	origin: [process.env.CLIENT_URL],
+	origin: [process.env.CLIENT_URL,
+		"https://docxtopdf-pi.vercel.app"
+	],
 };
 app.use(cors(corsOptions));
 
